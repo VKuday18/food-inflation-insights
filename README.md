@@ -86,3 +86,44 @@ Building analytics dashboards
 Reproducible data pipelines
 Communicating insights visually
 It reflects practical, industry-level work similar to what analysts and engineers do at companies like Capital One, Amazon, Netflix, and fintech organizations.
+🧠 SQL Analysis
+After loading the CPI dataset into a SQLite database (data/food_inflation.db), several analytical SQL queries were run to explore long-term inflation trends.
+🔍 1. Preview 5 records
+SELECT * FROM food_cpi LIMIT 5;
+📅 2. Date range covered in the dataset
+SELECT MIN(date) AS earliest_month,
+       MAX(date) AS latest_month
+FROM food_cpi;
+🧮 3. Total number of observations
+SELECT COUNT(*) AS total_records
+FROM food_cpi;
+🍎 4. All available food categories
+SELECT DISTINCT category
+FROM food_cpi;
+📊 5. Average inflation per category (2015–Present)
+SELECT category,
+       AVG(value) AS avg_cpi
+FROM food_cpi
+GROUP BY category
+ORDER BY avg_cpi DESC;
+🥛 6. Inflation trend for Dairy
+SELECT date,
+       value
+FROM food_cpi
+WHERE category = 'Dairy'
+ORDER BY date;
+📈 7. Yearly average inflation by category
+SELECT SUBSTR(date, 1, 4) AS year,
+       category,
+       AVG(value) AS avg_yearly_cpi
+FROM food_cpi
+GROUP BY year, category
+ORDER BY year, category;
+These queries demonstrate skills in:
+Filtering
+DATE handling
+Aggregation
+Grouping
+Trend analysis
+Basic time-series exploration
+This section shows the SQL engineering piece of the project beyond just Python/visualization.
